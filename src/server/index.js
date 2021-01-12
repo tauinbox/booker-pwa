@@ -43,10 +43,10 @@ app.patch('/auditorium', (req, res) => {
 });
 
 app.use(express.static(ROOT));
-console.log(`serving ${ROOT}`);
+console.log(`Serving ${ROOT}`);
 
 app.get('*', (req, res) => {
-  res.sendFile('index.html', {root: ROOT});
+  res.sendFile(`/`, {root: ROOT});
 });
 
 app.listen(PORT, () => {
