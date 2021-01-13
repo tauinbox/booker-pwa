@@ -8,6 +8,9 @@ import { AuditoriumComponent } from './auditorium/auditorium.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    AuditoriumComponent
   ]
 })
 export class BookingModule {
