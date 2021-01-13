@@ -11,7 +11,7 @@ const app = express();
 const ROOT = process.env.DIST || '../../dist/booker-pwa';
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({methods: 'GET,PATCH'}));
 app.use(bodyParser.json());
 
 app.get('/auditorium', (req, res) => {
