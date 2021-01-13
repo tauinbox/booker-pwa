@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { BookingModule } from './booking/booking.module';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -14,8 +11,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CoreModule,
-    BookingModule
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
