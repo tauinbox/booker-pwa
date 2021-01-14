@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+  height: 100vh;
+  padding: 10px;
+  place-items: center;
+
+  * {
+    text-align: center;
+  }
+
+  section {
+    font-size: xxx-large;
+  }
+}

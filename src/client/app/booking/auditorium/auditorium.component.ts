@@ -3,7 +3,7 @@ import { AuditoriumService } from './auditorium.service';
 
 @Component({
   templateUrl: './auditorium.component.html',
-  styleUrls: ['./auditorium.component.css'],
+  styleUrls: ['./auditorium.component.scss'],
   providers: [AuditoriumService]
 })
 export class AuditoriumComponent implements OnInit {

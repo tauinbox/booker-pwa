@@ -26,7 +26,7 @@
               "src/client/robots.txt"
             ],
             "styles": [
-              "src/client/styles.css"
+              "src/client/styles.scss"
             ],
             "scripts": []
           },
@@ -41,7 +41,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -94,7 +93,7 @@
               "src/client/robots.txt"
             ],
             "styles": [
-              "src/client/styles.css"
+              "src/client/styles.scss"
             ],
             "scripts": []
           }
@@ -125,6 +124,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "booker-pwa"
+    }
+  },
+  "defaultProject": "booker-pwa",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  }
 }
