@@ -1,2 +1,2 @@
-<p>auditorium works!</p>
-<button (click)="checkConnection()">Check Connection</button>
+<!--<button (click)="checkConnection()">Check Connection</button>-->
+<app-seat *ngFor="let seat of (auditorium$ | async)" [seat]="seat"></app-seat>
