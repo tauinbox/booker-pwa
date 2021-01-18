@@ -11,11 +11,14 @@ export class SeatComponent implements OnInit {
   @Input()
   seat: Seat;
 
+  @Input()
+  currentUserId: string;
+
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log('!!! seat:', this.seat);
+    console.log('seat, currentUserId:', this.seat, this.currentUserId);
   }
 
 }

@@ -1,2 +1,4 @@
 <!--<button (click)="checkConnection()">Check Connection</button>-->
-<app-seat *ngFor="let seat of (auditorium$ | async)" [seat]="seat"></app-seat>
+<app-seat *ngFor="let seat of (auditorium$ | async)"
+          [seat]="seat"
+          [currentUserId]="userSvc.currentUserId"></app-seat>

@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HomeComponent } from './home/home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { environment } from '../../environments/environment';
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     RouterModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],

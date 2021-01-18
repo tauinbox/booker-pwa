@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuditoriumService } from './auditorium.service';
 import { Auditorium } from '../models/auditorium';
 import { Observable } from 'rxjs';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   templateUrl: './auditorium.component.html',
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 export class AuditoriumComponent implements OnInit {
   public auditorium$: Observable<Auditorium>;
 
-  constructor(private auditoriumService: AuditoriumService) {
+  constructor(private auditoriumService: AuditoriumService, public userSvc: UserService) {
   }
 
   ngOnInit(): void {
