@@ -1,1 +1,3 @@
-<div>{{seat.seatId}}</div>
+<div class="unit"
+     [class.reserved]="seat.userId && (seat.userId === currentUserId)"
+     [class.occupied]="seat.userId && (seat.userId !== currentUserId)">{{seat.seatId}}</div>

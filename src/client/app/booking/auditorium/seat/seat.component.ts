@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Seat } from '../../models/seat';
 
 @Component({
@@ -14,11 +14,21 @@ export class SeatComponent implements OnInit {
   @Input()
   currentUserId: string;
 
+  @Output()
+  selected: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {
   }
 
   ngOnInit(): void {
     console.log('seat, currentUserId:', this.seat, this.currentUserId);
+  }
+
+  @HostListener('click', ['$event.target'])
+  onClick(): void {
+    if (!this.seat.userId || this.seat.userId === this.currentUserId) {
+      this.selected.emit(this.seat.seatId);
+    }
   }
 
 }

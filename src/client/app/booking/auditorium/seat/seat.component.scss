@@ -1,0 +1,22 @@
+:host {
+  margin: 2px;
+  padding: 2px;
+  border: solid 1px dimgray;
+  background-color: antiquewhite;
+
+  &:hover div:not(.occupied) {
+    cursor: pointer;
+  }
+
+  .unit {
+    height: 100%;
+  }
+
+  .reserved {
+    background-color: aquamarine;
+  }
+
+  .occupied {
+    background-color: lightcoral;
+  }
+}
