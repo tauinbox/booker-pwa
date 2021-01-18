@@ -1,4 +1,4 @@
 <!--<button (click)="checkConnection()">Check Connection</button>-->
 <app-seat *ngFor="let seat of (auditorium$ | async)"
-          [seat]="seat"
-          [currentUserId]="userSvc.currentUserId"></app-seat>
+          [currentUserId]="userSvc.currentUserId"
+          [seat]="seat"></app-seat>
