@@ -1,0 +1,24 @@
+:host {
+  ul.horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+
+    li {
+      display: inline-flex;
+
+      a {
+        display: inline-block;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: white;
+
+        &.active {
+          background-color: #4CAF50;
+        }
+      }
+    }
+  }
+}

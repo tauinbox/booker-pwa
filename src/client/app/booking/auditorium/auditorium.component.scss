@@ -1,6 +1,4 @@
 :host {
   display: grid;
   grid-template: repeat(10, 50px) / repeat(20, 50px);
-  padding: 10px;
-  width: fit-content;
 }

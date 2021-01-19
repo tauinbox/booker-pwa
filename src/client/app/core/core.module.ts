@@ -1,16 +1,18 @@
+import { environment } from '../../environments/environment';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { EnsureModuleLoadedOnceGuard } from './ensure-module-loaded-once.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../../environments/environment';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
+    NavbarComponent,
     PageNotFoundComponent,
     HomeComponent
   ],
@@ -22,7 +24,10 @@ import { FormsModule } from '@angular/forms';
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   exports: [
-    HttpClientModule
+    HttpClientModule,
+    PageNotFoundComponent,
+    NavbarComponent,
+    HomeComponent
   ]
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {

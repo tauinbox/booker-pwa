@@ -21,10 +21,10 @@ export class SeatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('seat, currentUserId:', this.seat, this.currentUserId);
+    // console.log('seat, currentUserId:', this.seat, this.currentUserId);
   }
 
-  @HostListener('click', ['$event.target'])
+  @HostListener('click')
   onClick(): void {
     if (!this.seat.userId || this.seat.userId === this.currentUserId) {
       this.selected.emit(this.seat.seatId);
