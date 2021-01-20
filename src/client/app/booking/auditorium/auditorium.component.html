@@ -1,5 +1,5 @@
-<app-seat *ngFor="let seat of (auditorium$ | async)"
+<app-seat (selected)="onSeatSelected($event)"
+          *ngFor="let seat of (auditorium$ | async)"
           [currentUserId]="userSvc.currentUserId"
-          [seat]="seat"
           [isPending]="pendingSeatIds.includes(seat.seatId)"
-          (selected)="onSeatSelected($event)"></app-seat>
+          [seat]="seat"></app-seat>

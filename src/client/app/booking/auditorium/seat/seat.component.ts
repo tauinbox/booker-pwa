@@ -9,22 +9,19 @@ import { Seat } from '../../models/seat';
 })
 export class SeatComponent {
   @Input()
-  seat: Seat;
+  public seat: Seat;
 
   @Input()
-  currentUserId: string;
+  public currentUserId: string;
 
   @Input()
-  isPending: boolean;
+  public isPending: boolean;
 
   @Output()
-  selected: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor() {
-  }
+  public selected: EventEmitter<string> = new EventEmitter<string>();
 
   @HostListener('click')
-  onClick(): void {
+  public onClick(): void {
     if (!this.seat.userId || this.seat.userId === this.currentUserId) {
       this.selected.emit(this.seat.seatId);
     }

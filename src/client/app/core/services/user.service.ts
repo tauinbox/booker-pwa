@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
-  currentUserId = '100';
+  public currentUserId = '100';
 
   constructor() {
   }
