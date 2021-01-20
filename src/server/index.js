@@ -34,7 +34,7 @@ app.patch('/auditorium', (req, res) => {
     if (!auditorium[seatId]) {
       auditorium[seatId] = userId;
     } else if (auditorium[seatId] === userId) {
-      delete auditorium[seatId]
+      delete auditorium[seatId];
     }
   });
 

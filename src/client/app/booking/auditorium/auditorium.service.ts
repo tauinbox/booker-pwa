@@ -8,7 +8,7 @@ import { Auditorium } from '../models/auditorium';
 const AUDITORIUM_ENDPOINT = environment.apiUrl + '/auditorium';
 
 function initAuditorium(numberOfSeats: number = 1): Auditorium {
-  const auditorium: Auditorium = {};
+  const auditorium: Auditorium = new Auditorium();
   for (let i = 1; i <= numberOfSeats; i++) {
     auditorium[i] = null;
   }

@@ -1,5 +1,5 @@
-<!--<button (click)="checkConnection()">Check Connection</button>-->
-<app-seat *ngFor="let seat of (auditorium$ | async) trackBy: trackByFn"
+<app-seat *ngFor="let seat of (auditorium$ | async)"
           [currentUserId]="userSvc.currentUserId"
           [seat]="seat"
+          [isPending]="pendingSeatIds.includes(seat.seatId)"
           (selected)="onSeatSelected($event)"></app-seat>

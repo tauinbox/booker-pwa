@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Seat } from '../../models/seat';
 
 @Component({
@@ -7,21 +7,20 @@ import { Seat } from '../../models/seat';
   styleUrls: ['./seat.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SeatComponent implements OnInit {
+export class SeatComponent {
   @Input()
   seat: Seat;
 
   @Input()
   currentUserId: string;
 
+  @Input()
+  isPending: boolean;
+
   @Output()
   selected: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-    // console.log('seat, currentUserId:', this.seat, this.currentUserId);
   }
 
   @HostListener('click')

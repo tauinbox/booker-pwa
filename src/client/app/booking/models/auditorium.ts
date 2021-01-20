@@ -1,13 +1,13 @@
 import { Seat } from './seat';
 
-export class Auditorium {
+export class Auditorium implements Iterable<Seat>{
   [seatId: string]: string;
 
-  constructor(init: Auditorium) {
-    Object.assign(this, init);
+  constructor(init?: Partial<Auditorium>) {
+    Object.assign(this, init ?? {});
   }
 
-  * [Symbol.iterator]?(): Generator<Seat> {
+  * [Symbol.iterator](): Generator<Seat> {
     for (const [seatId, userId] of Object.entries(this)) {
       yield {seatId, userId};
     }
