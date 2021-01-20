@@ -25,7 +25,7 @@ export class AuditoriumComponent implements OnInit {
     const auditoriumUpdate$ = this.seat$.pipe(
       tap(seatId => {
         this.auditoriumService.updateSelectedSeats(seatId, this.userSvc.currentUserId);
-        this.pendingSeatIds = Object.keys(this.auditoriumService.selectedSeats);
+        this.pendingSeatIds = this.auditoriumService.getPendingSeatIds();
       }),
       debounceTime(1000),
       filter(() => this.pendingSeatIds.length > 0),
@@ -55,7 +55,7 @@ export class AuditoriumComponent implements OnInit {
   private handleUpdateError(): Observable<Auditorium> {
     return this.auditoriumService.isConnectionOk$().pipe(
       expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(5000)),
-      filter(ok => ok),
+      filter(ok => ok && this.pendingSeatIds.length > 0),
       switchMap(() => this.updateAuditoriumState$())
     );
   }

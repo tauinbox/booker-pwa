@@ -18,6 +18,7 @@ function initAuditorium(numberOfSeats: number = 1): Auditorium {
 @Injectable()
 export class AuditoriumService {
   public selectedSeats: Auditorium = new Auditorium();
+
   private emptyAuditorium: Auditorium = initAuditorium(200);
 
   constructor(private http: HttpClient) {
@@ -33,6 +34,10 @@ export class AuditoriumService {
 
   public resetSelectedSeats(): void {
     this.selectedSeats = new Auditorium();
+  }
+
+  public getPendingSeatIds(): string[] {
+    return Object.keys(this.selectedSeats);
   }
 
   public isConnectionOk$(delayTime = 0): Observable<boolean> {
