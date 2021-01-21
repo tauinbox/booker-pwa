@@ -21,7 +21,7 @@ app.get('/auditorium', (req, res) => {
 
 app.patch('/auditorium', (req, res) => {
   if (!req.body || Object.keys(req.body).length === 0) {
-    return res.status(400).send('Bad Request');
+    return res.status(400).send({ok: false});
   }
 
   let auditorium = db.get('auditorium').value();
@@ -39,7 +39,7 @@ app.patch('/auditorium', (req, res) => {
   });
 
   db.set('auditorium', auditorium).write();
-  res.json(auditorium);
+  return res.status(200).send({ok: true});
 });
 
 app.use(express.static(ROOT));

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, delay, map, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, delay, map, switchMap } from 'rxjs/operators';
 import { Auditorium } from '../models/auditorium';
 
 const AUDITORIUM_ENDPOINT = environment.apiUrl + '/auditorium';
@@ -41,9 +41,9 @@ export class AuditoriumService {
   }
 
   public isConnectionOk$(delayTime = 0): Observable<boolean> {
-    return of(EMPTY).pipe(
+    return of(null).pipe(
       delay(delayTime),
-      mergeMap(() => this.http.options(AUDITORIUM_ENDPOINT, {observe: 'response'})
+      switchMap(() => this.http.options(AUDITORIUM_ENDPOINT, {observe: 'response'})
         .pipe(
           map(res => res.ok),
           catchError(() => of(false))
@@ -57,9 +57,7 @@ export class AuditoriumService {
     );
   }
 
-  public updateAuditoriumState$(state: Auditorium): Observable<Auditorium> {
-    return this.http.patch<Auditorium>(AUDITORIUM_ENDPOINT, state).pipe(
-      map(auditorium => new Auditorium({...this.emptyAuditorium, ...auditorium}))
-    );
+  public updateAuditoriumState$(state: Auditorium): Observable<HttpResponse<{ 'ok': boolean }>> {
+    return this.http.patch<HttpResponse<{ 'ok': boolean }>>(AUDITORIUM_ENDPOINT, state);
   }
 }
