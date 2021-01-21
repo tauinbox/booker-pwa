@@ -44,7 +44,7 @@ export class AuditoriumComponent implements OnInit {
       .pipe(
         tap(() => this.resetSelectedSeats()),
         catchError(() => this.handleUpdateError())
-      );
+      ).pipe(switchMap(() => this.auditoriumService.getAuditoriumState$()));
   }
 
   private resetSelectedSeats(): void {

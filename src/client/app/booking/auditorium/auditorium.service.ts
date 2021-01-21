@@ -58,8 +58,6 @@ export class AuditoriumService {
   }
 
   public updateAuditoriumState$(state: Auditorium): Observable<Auditorium> {
-    return this.http.patch<Auditorium>(AUDITORIUM_ENDPOINT, state).pipe(
-      map(auditorium => new Auditorium({...this.emptyAuditorium, ...auditorium}))
-    );
+    return this.http.patch<Auditorium>(AUDITORIUM_ENDPOINT, state);
   }
 }

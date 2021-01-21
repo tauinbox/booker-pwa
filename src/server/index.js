@@ -39,7 +39,7 @@ app.patch('/auditorium', (req, res) => {
   });
 
   db.set('auditorium', auditorium).write();
-  res.json(auditorium);
+  return res.status(200).send('Ok');
 });
 
 app.use(express.static(ROOT));

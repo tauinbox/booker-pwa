@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-pwa": "ng build --prod && cd src/server && node index.js"
+    "build-and-serve": "ng build --prod && cd src/server && node index.js",
+    "serve": "cd src/server && node index.js"
   },
   "private": true,
   "dependencies": {
