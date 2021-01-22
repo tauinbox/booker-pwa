@@ -9,7 +9,7 @@ export class Auditorium implements Iterable<Seat> {
 
   public* [Symbol.iterator](): Generator<Seat> {
     for (const [seatId, userId] of Object.entries(this)) {
-      yield {seatId, userId};
+      yield new Seat(seatId, userId);
     }
   }
 }

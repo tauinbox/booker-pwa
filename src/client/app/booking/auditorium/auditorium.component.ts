@@ -5,6 +5,8 @@ import { concat, EMPTY, Observable, Subject } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { catchError, debounceTime, expand, filter, switchMap, tap } from 'rxjs/operators';
 
+const DEBOUNCE = 1000;
+
 @Component({
   templateUrl: './auditorium.component.html',
   styleUrls: ['./auditorium.component.scss'],
@@ -23,11 +25,8 @@ export class AuditoriumComponent implements OnInit {
   public ngOnInit(): void {
     const auditoriumInit$ = this.auditoriumService.getAuditoriumState$();
     const auditoriumUpdate$ = this.seat$.pipe(
-      tap(seatId => {
-        this.auditoriumService.updateSelectedSeats(seatId, this.userSvc.currentUserId);
-        this.pendingSeatIds = this.auditoriumService.getPendingSeatIds();
-      }),
-      debounceTime(1000),
+      tap(seatId => this.updateSelectedSeats(seatId)),
+      debounceTime(DEBOUNCE),
       filter(() => this.pendingSeatIds.length > 0),
       switchMap(() => this.updateAuditoriumState$())
     );
@@ -37,6 +36,11 @@ export class AuditoriumComponent implements OnInit {
 
   public onSeatSelected(seatId: string): void {
     this.seat$.next(seatId);
+  }
+
+  private updateSelectedSeats(seatId: string): void {
+    this.auditoriumService.updateSelectedSeats(seatId, this.userSvc.currentUserId);
+    this.pendingSeatIds = this.auditoriumService.getPendingSeatIds();
   }
 
   private updateAuditoriumState$(): Observable<Auditorium> {
