@@ -45,7 +45,7 @@ export class AuditoriumComponent implements OnInit {
   }
 
   private updateAuditoriumState$(): Observable<Auditorium> {
-    return this.isConnectionOk$().pipe(
+    return this.isReadyToUpdate$().pipe(
       switchMap(() => this.auditoriumService.updateAuditoriumState$(this.auditoriumService.selectedSeats)
         .pipe(
           tap(() => this.resetSelectedSeats()),
@@ -59,7 +59,7 @@ export class AuditoriumComponent implements OnInit {
     this.pendingSeatIds = [];
   }
 
-  private isConnectionOk$(): Observable<boolean> {
+  private isReadyToUpdate$(): Observable<boolean> {
     return this.auditoriumService.isConnectionOk$().pipe(
       expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
       filter(ok => ok && this.pendingSeatIds.length > 0)
