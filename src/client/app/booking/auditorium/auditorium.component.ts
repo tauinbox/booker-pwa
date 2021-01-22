@@ -45,11 +45,13 @@ export class AuditoriumComponent implements OnInit {
   }
 
   private updateAuditoriumState$(): Observable<Auditorium> {
-    return this.auditoriumService.updateAuditoriumState$(this.auditoriumService.selectedSeats)
-      .pipe(
-        tap(() => this.resetSelectedSeats()),
-        catchError(() => this.handleUpdateError())
-      ).pipe(switchMap(() => this.auditoriumService.getAuditoriumState$()));
+    return this.isConnectionOk$().pipe(
+      switchMap(() => this.auditoriumService.updateAuditoriumState$(this.auditoriumService.selectedSeats)
+        .pipe(
+          tap(() => this.resetSelectedSeats()),
+          catchError(() => this.updateAuditoriumState$())
+        ).pipe(switchMap(() => this.auditoriumService.getAuditoriumState$())))
+    );
   }
 
   private resetSelectedSeats(): void {
@@ -57,11 +59,10 @@ export class AuditoriumComponent implements OnInit {
     this.pendingSeatIds = [];
   }
 
-  private handleUpdateError(): Observable<Auditorium> {
+  private isConnectionOk$(): Observable<boolean> {
     return this.auditoriumService.isConnectionOk$().pipe(
       expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
-      filter(ok => ok && this.pendingSeatIds.length > 0),
-      switchMap(() => this.updateAuditoriumState$())
+      filter(ok => ok && this.pendingSeatIds.length > 0)
     );
   }
 
