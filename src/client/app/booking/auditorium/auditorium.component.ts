@@ -5,7 +5,8 @@ import { concat, EMPTY, Observable, Subject } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { catchError, debounceTime, expand, filter, switchMap, tap } from 'rxjs/operators';
 
-const DEBOUNCE = 1000;
+const DEBOUNCE_TIME = 1000;
+const CONNECTION_CHECK_DELAY = 5000;
 
 @Component({
   templateUrl: './auditorium.component.html',
@@ -26,7 +27,7 @@ export class AuditoriumComponent implements OnInit {
     const auditoriumInit$ = this.auditoriumService.getAuditoriumState$();
     const auditoriumUpdate$ = this.seat$.pipe(
       tap(seatId => this.updateSelectedSeats(seatId)),
-      debounceTime(DEBOUNCE),
+      debounceTime(DEBOUNCE_TIME),
       filter(() => this.pendingSeatIds.length > 0),
       switchMap(() => this.updateAuditoriumState$())
     );
@@ -58,7 +59,7 @@ export class AuditoriumComponent implements OnInit {
 
   private handleUpdateError(): Observable<Auditorium> {
     return this.auditoriumService.isConnectionOk$().pipe(
-      expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(5000)),
+      expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
       filter(ok => ok && this.pendingSeatIds.length > 0),
       switchMap(() => this.updateAuditoriumState$())
     );
