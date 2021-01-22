@@ -2,7 +2,7 @@
   border: solid 1px dimgray;
   background-color: antiquewhite;
 
-  &:hover div:not(.occupied) {
+  &:hover div:not(.occupied):not(.pending) {
     cursor: pointer;
   }
 
@@ -20,9 +20,11 @@
 
   .occupied {
     background-color: lightcoral;
+    cursor: not-allowed;
   }
 
   .pending {
     background-color: grey;
+    cursor: wait;
   }
 }
