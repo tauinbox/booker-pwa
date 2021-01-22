@@ -1,4 +1,5 @@
 :host {
   display: grid;
   grid-template: repeat(10, 50px) / repeat(20, 50px);
+  gap: 5px 5px;
 }

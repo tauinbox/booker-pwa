@@ -1,6 +1,4 @@
 :host {
-  margin: 2px;
-  padding: 2px;
   border: solid 1px dimgray;
   background-color: antiquewhite;
 
@@ -10,6 +8,10 @@
 
   .unit {
     height: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .reserved {
