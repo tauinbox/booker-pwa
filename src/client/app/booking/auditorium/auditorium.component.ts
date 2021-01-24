@@ -28,7 +28,6 @@ export class AuditoriumComponent implements OnInit {
     const auditoriumUpdate$ = this.seat$.pipe(
       tap(seatId => this.updateSelectedSeats(seatId)),
       debounceTime(DEBOUNCE_TIME),
-      filter(() => this.pendingSeatIds.length > 0),
       switchMap(() => this.updateAuditoriumState$())
     );
 
@@ -63,7 +62,9 @@ export class AuditoriumComponent implements OnInit {
     return of(this.pendingSeatIds.length > 0).pipe(
       filter(ok => ok),
       switchMap(() => this.auditoriumService.isConnectionOk$().pipe(
-        expand(ok => ok || this.pendingSeatIds.length === 0 ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
+        expand(ok => ok || (this.pendingSeatIds.length === 0)
+          ? EMPTY
+          : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
         filter(ok => ok)
       ))
     );
