@@ -12,19 +12,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.reserved {
+      background-color: aquamarine;
+    }
+
+    &.occupied {
+      background-color: lightcoral;
+      cursor: not-allowed;
+    }
+
+    &.pending {
+      background-color: lightgray;
+      cursor: wait;
+    }
   }
 
-  .reserved {
-    background-color: aquamarine;
-  }
-
-  .occupied {
-    background-color: lightcoral;
-    cursor: not-allowed;
-  }
-
-  .pending {
-    background-color: lightgray;
-    cursor: wait;
-  }
 }
