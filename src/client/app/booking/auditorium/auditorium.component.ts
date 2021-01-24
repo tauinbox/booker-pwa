@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuditoriumService } from './auditorium.service';
 import { Auditorium } from '../models/auditorium';
-import { concat, EMPTY, Observable, Subject } from 'rxjs';
+import { concat, EMPTY, Observable, of, Subject } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { catchError, debounceTime, expand, filter, switchMap, tap } from 'rxjs/operators';
 
@@ -60,9 +60,12 @@ export class AuditoriumComponent implements OnInit {
   }
 
   private isReadyToUpdate$(): Observable<boolean> {
-    return this.auditoriumService.isConnectionOk$().pipe(
-      expand(ok => ok ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
-      filter(ok => ok && this.pendingSeatIds.length > 0)
+    return of(this.pendingSeatIds.length > 0).pipe(
+      filter(ok => ok),
+      switchMap(() => this.auditoriumService.isConnectionOk$().pipe(
+        expand(ok => ok || this.pendingSeatIds.length === 0 ? EMPTY : this.auditoriumService.isConnectionOk$(CONNECTION_CHECK_DELAY)),
+        filter(ok => ok)
+      ))
     );
   }
 
