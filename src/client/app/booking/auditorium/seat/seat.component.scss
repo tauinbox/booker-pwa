@@ -1,10 +1,7 @@
 :host {
   border: solid 1px dimgray;
   background-color: antiquewhite;
-
-  &:hover div:not(.occupied):not(.pending) {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   .unit {
     height: 100%;
