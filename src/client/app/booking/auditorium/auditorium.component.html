@@ -1,5 +1,3 @@
 <app-seat (selected)="onSeatSelected($event)"
-          *ngFor="let seat of (auditorium$ | async)"
-          [currentUserId]="userSvc.currentUserId"
-          [isPending]="pendingSeatIds.includes(seat.seatId)"
+          *ngFor="let seat of (auditorium$ | async)?.seats; trackBy: trackBy"
           [seat]="seat"></app-seat>

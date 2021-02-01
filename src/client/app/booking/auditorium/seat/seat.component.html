@@ -1,4 +1,2 @@
-<div [class.occupied]="seat.userId && (seat.userId !== currentUserId)"
-     [class.pending]="isPending"
-     [class.reserved]="seat.userId && (seat.userId === currentUserId)"
+<div [ngClass]="{'occupied': seat.isOccupied, 'pending': seat.isPending, 'reserved': seat.isReserved}"
      class="unit">{{seat}}</div>

@@ -11,18 +11,13 @@ export class SeatComponent {
   @Input()
   public seat: Seat;
 
-  @Input()
-  public currentUserId: string;
-
-  @Input()
-  public isPending: boolean;
-
   @Output()
   public selected: EventEmitter<string> = new EventEmitter<string>();
 
   @HostListener('click')
   public onClick(): void {
-    if (!this.seat.userId || this.seat.userId === this.currentUserId) {
+    if (!this.seat.isOccupied) {
+      this.seat.select();
       this.selected.emit(this.seat.seatId);
     }
   }
