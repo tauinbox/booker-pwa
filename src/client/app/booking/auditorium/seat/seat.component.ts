@@ -12,13 +12,13 @@ export class SeatComponent {
   public seat: Seat;
 
   @Output()
-  public selected: EventEmitter<string> = new EventEmitter<string>();
+  public selected: EventEmitter<number> = new EventEmitter<number>();
 
   @HostListener('click')
   public onClick(): void {
     if (!this.seat.isOccupied) {
       this.seat.select();
-      this.selected.emit(this.seat.seatId);
+      this.selected.emit(this.seat.id);
     }
   }
 

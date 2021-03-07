@@ -1,6 +1,6 @@
 import { Seat } from './seat';
 
 export class Auditorium {
-  constructor(public seats: Seat[]) {
+  constructor(public id: number, public seats: Seat[]) {
   }
 }

@@ -8,7 +8,8 @@ import { Seat, SeatValue } from '../models/seat';
 import { UserService } from '../../core/services/user.service';
 import { PollingService } from '../../core/services/polling.service';
 
-const AUDITORIUM_ENDPOINT = environment.apiUrl + '/auditorium';
+const AUDITORIUM_ID = 1;
+const AUDITORIUM_ENDPOINT = environment.apiUrl + '/auditoriums/' + AUDITORIUM_ID;
 const DEBOUNCE_TIME = 1000;
 
 @Injectable()
@@ -22,8 +23,8 @@ export class AuditoriumService {
     this.auditorium$ = concat(this.getAuditoriumState$(), this.auditoriumStateChanges$());
   }
 
-  public updateSelectedSeats(seatId: string): void {
-    this.seatSelectionStream$.next({seatId, userId: this.userSvc.currentUserId});
+  public updateSelectedSeats(id: number): void {
+    this.seatSelectionStream$.next({id, userId: this.userSvc.currentUserId});
   }
 
   private auditoriumStateChanges$(): Observable<Auditorium> {
@@ -38,21 +39,20 @@ export class AuditoriumService {
   private filterBuffer(seats: SeatValue[]): SeatValue[] {
     const counter = seats.reduce(
       (count, seat) => {
-        count[seat.seatId] = (count[seat.seatId] ?? 0) + 1;
+        count[seat.id] = (count[seat.id] ?? 0) + 1;
         return count;
       },
       {}
     );
-    const filteredIds = Object.keys(counter).filter(seatId => counter[seatId] % 2 !== 0);
+    const filteredIds = Object.keys(counter).filter(id => counter[id] % 2 !== 0);
 
-    return filteredIds.map(id => seats.find(seat => seat.seatId === id));
+    return filteredIds.map(id => seats.find(seat => String(seat.id) === id));
   }
 
   private getAuditoriumState$(): Observable<Auditorium> {
     return this.http.get<Auditorium>(AUDITORIUM_ENDPOINT).pipe(
       map(auditorium =>
-        new Auditorium(
-          auditorium.seats.map(seat => new Seat(seat.seatId, seat.userId, this.userSvc.currentUserId))
+        new Auditorium(AUDITORIUM_ID, auditorium.seats.map(seat => new Seat(seat.id, seat.userId, this.userSvc.currentUserId))
         )
       )
     );

@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/auditorium', auditoriumRouter);
+app.use('/auditoriums', auditoriumRouter);
 app.use(express.static(ROOT));
 
 console.log(`Serving ${ROOT}`);

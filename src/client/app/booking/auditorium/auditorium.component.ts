@@ -20,7 +20,7 @@ export class AuditoriumComponent implements OnInit {
     this.auditorium$ = this.auditoriumService.auditorium$;
   }
 
-  public onSeatSelected(seatId: string): void {
+  public onSeatSelected(seatId: number): void {
     this.auditoriumService.updateSelectedSeats(seatId);
   }
 

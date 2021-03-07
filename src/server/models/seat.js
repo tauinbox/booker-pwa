@@ -1,6 +1,6 @@
 class Seat {
-  constructor(seatId, userId) {
-    this.seatId = seatId;
+  constructor(id, userId) {
+    this.id = id;
     this.userId = userId;
   }
 }
