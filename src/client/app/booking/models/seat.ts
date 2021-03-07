@@ -5,7 +5,7 @@ export class Seat {
   public isReserved: boolean;
   public isPending: boolean;
 
-  constructor(public id: number, public userId: string, currentUserId: string) {
+  constructor(public id: number, public userId: number, currentUserId: number) {
     this.isReserved = this.userId === currentUserId;
     this.isOccupied = Boolean(this.userId) && !this.isReserved;
     this.isPending = false;

@@ -24,7 +24,7 @@ export class AuditoriumComponent implements OnInit {
     this.auditoriumService.updateSelectedSeats(seatId);
   }
 
-  public trackBy(index: number, item: Seat): string {
+  public trackBy(index: number, item: Seat): number {
     return item.userId;
   }
 

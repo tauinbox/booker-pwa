@@ -3,9 +3,10 @@ const router = express.Router();
 const lowDb = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const Auditorium = require("../models/auditorium");
+const Seat = require("../models/seat");
 
 const db = lowDb(new FileSync('db.json'));
-const auditorium1 = new Auditorium(1, 200);
+const auditorium1 = new Auditorium(1, Array.from(Array(200).keys()).map(k => new Seat(k + 1, null)));
 
 db.defaults({
   auditoriums: [auditorium1]
@@ -22,18 +23,12 @@ router.get('/:id', function (req, res) {
 router.patch('/:id', (req, res) => {
   const record = db.get("auditoriums")
     .find({id: +req.params.id});
-  const auditorium = record.value();
-  const seatChanges = req.body;
+  const auditorium = new Auditorium(+req.params.id, record.value().seats.map(seat => new Seat(seat.id, seat.userId)));
+  const seatChanges = req.body || [];
 
-  auditorium.seats = auditorium.seats.map(seat => {
-    const changedSeat = seatChanges.find(s => s.id === seat.id);
-    if (changedSeat) {
-      if (changedSeat.userId === seat.userId) {
-        return {id: seat.id, userId: null};
-      }
-      return {id: seat.id, userId: changedSeat.userId};
-    }
-    return seat;
+  seatChanges.forEach(seat => {
+    auditorium.getSeat(seat.id)
+      .applySelection(seat.userId);
   });
 
   record

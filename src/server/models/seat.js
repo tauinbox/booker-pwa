@@ -3,6 +3,16 @@ class Seat {
     this.id = id;
     this.userId = userId;
   }
+
+  applySelection(userId) {
+    if (userId === this.userId) {
+      this.userId = null;
+      return;
+    }
+    if (this.userId === null) {
+      this.userId = userId;
+    }
+  }
 }
 
 module.exports = Seat;

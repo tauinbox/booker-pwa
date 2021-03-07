@@ -1,16 +1,14 @@
-const Seat = require("./seat");
-
 class Auditorium {
   id;
   seats;
 
-  constructor(id, numberOfSeats) {
+  constructor(id, seats) {
     this.id = id;
-    this.seats = this.initSeats(numberOfSeats);
+    this.seats = seats;
   }
 
-  initSeats(numberOfSeats) {
-    return Array.from(Array(numberOfSeats).keys()).map(k => new Seat(k + 1, null));
+  getSeat(seatId) {
+    return this.seats.find(seat => seat.id === seatId);
   }
 
 }
