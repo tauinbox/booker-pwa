@@ -4,7 +4,7 @@ class Seat {
     this.userId = userId;
   }
 
-  applySelection(userId) {
+  reassignUser(userId) {
     if (userId === this.userId) {
       this.userId = null;
       return;

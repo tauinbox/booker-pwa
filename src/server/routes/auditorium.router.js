@@ -24,12 +24,9 @@ router.patch('/:id', (req, res) => {
   const record = db.get("auditoriums")
     .find({id: +req.params.id});
   const auditorium = new Auditorium(+req.params.id, record.value().seats.map(seat => new Seat(seat.id, seat.userId)));
-  const seatChanges = req.body || [];
+  const updatedSeats = req.body || [];
 
-  seatChanges.forEach(seat => {
-    auditorium.getSeat(seat.id)
-      .applySelection(seat.userId);
-  });
+  updatedSeats.forEach(seat => auditorium.getSeat(seat.id).reassignUser(seat.userId));
 
   record
     .assign(auditorium)
