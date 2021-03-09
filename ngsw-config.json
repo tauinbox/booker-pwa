@@ -31,7 +31,7 @@
     {
       "name": "api-freshness",
       "urls": [
-        "http://localhost:4000/auditorium"
+        "http://localhost:4000/auditoriums"
       ],
       "cacheConfig": {
         "strategy": "freshness",
